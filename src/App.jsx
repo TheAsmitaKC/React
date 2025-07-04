@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 const App = () => {
+  const suggestions = ["Beautiful", "Wonderful", "Gorgeous", "Nice"]
   const[text, settext]= useState('')
   const[comment, setcomment]= useState('')
   const handlebutton=(e)=>{
@@ -8,6 +9,7 @@ const App = () => {
    settext(textval)
    console.log(textval)
   }
+ 
   const handlesubmit=()=>{
 setcomment(text)
   }
@@ -15,10 +17,13 @@ setcomment(text)
     <div className=' flex flex-col justify-center h-[100vh] items-center'>
       <div className='bg-amber-200 h-[60vh] w-[30vw] flex flex-col items-center'>
         <div  className='mt-10 '>
-       <button className='border p-2 m-5 bg-white hover:bg-amber-100 ' onClick={handlebutton}  >Beautiful</button>
+    {suggestions.map((item)=>(
+      <button className='border p-2 m-5 bg-white hover:bg-amber-100'  onClick={handlebutton} >{item}</button>
+    ))}
+       {/* <button className='border p-2 m-5 bg-white hover:bg-amber-100 ' onClick={handlebutton}  >Beautiful</button>
        <button className='border p-2 m-5  bg-white hover:bg-amber-100 'onClick={handlebutton}>Wonderful</button>
        <button className='border p-2 m-5  bg-white hover:bg-amber-100 ' onClick={handlebutton}>Gorgeous</button>
-       <button className='border p-2 m-5  bg-white hover:bg-amber-100 'onClick={handlebutton}>Nice</button>
+       <button className='border p-2 m-5  bg-white hover:bg-amber-100 'onClick={handlebutton}>Nice</button> */}
        </div>
        <input  className=' border p-4 w-[20vw] m-10 bg-white'type="text" placeholder='Enter comment ...'  value={text}  onChange={(e)=>e.target.value}/>
        <button className='border p-2 m-5 bg-white hover:bg-amber-100 w-50 ' onClick={handlesubmit}>Send Comment</button>
