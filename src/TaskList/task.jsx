@@ -1,23 +1,66 @@
-import React, { useRef, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 
 const task = () => {
-    const [addtext, setaddtext]= useState('')
-    const [task, settask] = useState('')
-    const handleaddbutton=(e)=>{
-        setaddtext(e.target.innerText)
+    const [text, settext]= useState([''])
+    const [task, settask] = useState([])
+    const handleaddbutton=()=>{
+   
+      settask((prev)=>[...prev,text])
+
+      settext("")
+  
     }
+  localStorage.setItem('task',JSON.stringify( task))
+
+    // useEffect(()=>{
+    //   const task = JSON.parse(localStorage.getItem('task'));
+    //   if(task){
+    //     settask(task)
+    //   }
+    // })
+  
   return (
     <div className=' flex flex-col justify-center h-[100vh] items-center'>
     <div className='bg-amber-200 h-[60vh] w-[30vw] flex flex-col items-center'>
       <h1 className='text-3xl mt-10'>Add Task</h1>  
       <div  className='mt-10  '>
-      <input  className=' border p-3 w-[20vw]  bg-white'type="text" placeholder='Enter comment ...' value={task} onChange={(e)=>e.target.value} />
-      <button className='p-3 border ml-10  bg-white }' onClick={handleaddbutton}>Add</button>
-      {addtext && <li>{setaddtext}</li> }
+        
+      <input  className=' border p-3 w-[20vw]  bg-white'type="text" placeholder='Enter comment ...' value={text} onChange={(e)=>settext(e.target.value)} />
+     
+    <button className=' border p-3  ml-5 mb-10 bg-white' onClick={handleaddbutton}>Add</button>
+    
+    <h1 className='text-2xl'>Task List</h1>
+    <ul>{task.length ===0 && <li>No tasks found</li>}
+    {task.length >0 && task.map((item, index)=><li  key={index}>{item}</li>)}
+    </ul>
+
   </div>
     </div>
   </div>
   )
 }
 
-export default task
+ export default task
+// import React, { useState } from 'react'
+
+// const task = () => {
+//   const [text, settext]= useState([''])
+//   const [task, settask]= useState([])
+//   function handlesubmit(){
+//   settask((prev)=>[...prev, text])
+//   settext("")
+//   }
+//   console.log(task.length, "TASK LENGTH");
+//   return (
+//     <div><div>
+//       <input type="text" placeholder='Enter task to add' className='border' value={text} onChange={(e)=>settext(e.target.value)} />
+//       <button className='border' onClick={handlesubmit}>Add</button>
+//       <h1>Task here</h1>
+//       <ul>
+//       {task.length===0 && <p>No task found</p>}
+//       {task.length >0 && task.map((item, index)=> <li key={index}>{item}</li>) }
+//         </ul>
+//       </div></div>
+//   )
+// }
+// export default task
